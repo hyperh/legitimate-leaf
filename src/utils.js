@@ -25,10 +25,15 @@ export const getTransactions = async blockNums => {
   return Promise.all(txPs);
 };
 
+export const getTotalEtherTransferred = txs =>
+  txs.reduce((prev, curr) => prev + curr.value, 0);
+
 export const main = async () => {
   const start = 6238372;
   const end = 6238374;
   const blockNums = range(start, end + 1);
   const txs = await getTransactions(blockNums);
-  console.log(txs);
+
+  const totalEtherTransferred = getTotalEtherTransferred(txs);
+  console.log('totalEtherTransferred', totalEtherTransferred);
 };
