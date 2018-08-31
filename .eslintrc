@@ -1,6 +1,13 @@
 {
-  "extends": "react-app",
+  "extends": ["react-app", "prettier", "prettier/react"],
   "rules": {
-    "no-unused-vars": "error"
-  }
+    "no-unused-vars": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true
+      }
+    ]
+  },
+  "plugins": ["prettier", "react"]
 }
