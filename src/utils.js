@@ -36,7 +36,8 @@ export const getTotalWeiTransferred = txs =>
 
 export const getReceiverTotals = txs =>
   txs.reduce((prev, tx) => {
-    const prevTotal = prev[tx.to];
+    const address = tx.to;
+    const prevTotal = prev[address];
     const newTotal = prevTotal
       ? new BN(prevTotal).add(new BN(tx.value))
       : new BN(tx.value);
