@@ -34,6 +34,16 @@ export const getTotalWeiTransferred = txs =>
     }, new BN(0))
     .toString();
 
+export const getReceiverTotals = txs =>
+  txs.reduce((prev, tx) => {
+    const prevTotal = prev[tx.to];
+    const newTotal = prevTotal
+      ? new BN(prevTotal).add(new BN(tx.value))
+      : new BN(tx.value);
+
+    return Object.assign(prev, { [tx.to]: newTotal.toString() });
+  }, {});
+
 export const main = async () => {
   const start = 4238372;
   const end = 4238374;
