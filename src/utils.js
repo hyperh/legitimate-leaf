@@ -41,6 +41,7 @@ export const getReceiverTotals = txs =>
       ? new BN(prevTotal).add(new BN(tx.value))
       : new BN(tx.value);
 
+    if (newTotal.eqn(0)) return prev;
     return Object.assign(prev, { [tx.to]: newTotal.toString() });
   }, {});
 
@@ -50,6 +51,7 @@ export const main = async () => {
   const blockNums = range(start, end + 1);
   const txs = await getTransactions(blockNums);
 
-  const getTotalWeiTransferred = getTotalWeiTransferred(txs);
-  return { getTotalWeiTransferred };
+  const totalWeiTransferred = getTotalWeiTransferred(txs);
+  const receiverTotals = getReceiverTotals(txs);
+  return { totalWeiTransferred, receiverTotals };
 };
