@@ -1,6 +1,7 @@
 import Web3 from 'web3';
 import dotenv from 'dotenv';
 import { range, flatten } from 'ramda';
+import BN from 'bn.js';
 
 dotenv.config();
 
@@ -26,7 +27,10 @@ export const getTransactions = async blockNums => {
 };
 
 export const getTotalEtherTransferred = txs =>
-  txs.reduce((prev, curr) => prev + curr.value, 0);
+  txs.reduce((prev, curr) => {
+    const currBN = new BN(curr.value);
+    return prev.add(currBN);
+  }, new BN(0));
 
 export const main = async () => {
   const start = 6238372;
@@ -35,5 +39,5 @@ export const main = async () => {
   const txs = await getTransactions(blockNums);
 
   const totalEtherTransferred = getTotalEtherTransferred(txs);
-  console.log('totalEtherTransferred', totalEtherTransferred);
+  console.log('totalEtherTransferred', totalEtherTransferred.toString());
 };
