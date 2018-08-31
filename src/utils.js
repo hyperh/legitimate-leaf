@@ -34,9 +34,9 @@ export const getTotalWeiTransferred = txs =>
     }, new BN(0))
     .toString();
 
-export const getReceiverTotals = txs =>
+export const getTotals = addressKey => txs =>
   txs.reduce((prev, tx) => {
-    const address = tx.to;
+    const address = tx[addressKey];
     const prevTotal = prev[address];
     const newTotal = prevTotal
       ? new BN(prevTotal).add(new BN(tx.value))
@@ -45,6 +45,8 @@ export const getReceiverTotals = txs =>
     if (newTotal.eqn(0)) return prev;
     return Object.assign(prev, { [tx.to]: newTotal.toString() });
   }, {});
+
+export const getReceiverTotals = getTotals('to');
 
 export const main = async () => {
   const start = 4238372;
