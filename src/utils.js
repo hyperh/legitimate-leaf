@@ -43,10 +43,11 @@ export const getTotals = addressKey => txs =>
       : new BN(tx.value);
 
     if (newTotal.eqn(0)) return prev;
-    return Object.assign(prev, { [tx.to]: newTotal.toString() });
+    return Object.assign(prev, { [address]: newTotal.toString() });
   }, {});
 
 export const getReceiverTotals = getTotals('to');
+export const getSenderTotals = getTotals('from');
 
 export const main = async () => {
   const start = 4238372;

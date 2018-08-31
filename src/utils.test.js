@@ -23,6 +23,21 @@ test('getReceiverTotals', () => {
   });
 });
 
+test('getSenderTotals', () => {
+  const totals = Utils.getSenderTotals([
+    { from: 'a', value: '100' },
+    { from: 'a', value: '1000' },
+    { from: 'a', value: '5000' },
+    { from: 'b', value: '200' },
+    { from: 'c', value: '123' }
+  ]);
+  expect(totals).toEqual({
+    a: '6100',
+    b: '200',
+    c: '123'
+  });
+});
+
 // test('main should run', async () => {
 //   const res = await Utils.main();
 //   console.log(res);
