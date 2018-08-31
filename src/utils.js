@@ -26,18 +26,20 @@ export const getTransactions = async blockNums => {
   return Promise.all(txPs);
 };
 
-export const getTotalEtherTransferred = txs =>
-  txs.reduce((prev, curr) => {
-    const currBN = new BN(curr.value);
-    return prev.add(currBN);
-  }, new BN(0));
+export const getTotalWeiTransferred = txs =>
+  txs
+    .reduce((prev, tx) => {
+      const currBN = new BN(tx.value);
+      return prev.add(currBN);
+    }, new BN(0))
+    .toString();
 
 export const main = async () => {
-  const start = 6238372;
-  const end = 6238374;
+  const start = 4238372;
+  const end = 4238374;
   const blockNums = range(start, end + 1);
   const txs = await getTransactions(blockNums);
 
-  const totalEtherTransferred = getTotalEtherTransferred(txs);
-  console.log('totalEtherTransferred', totalEtherTransferred.toString());
+  const getTotalWeiTransferred = getTotalWeiTransferred(txs);
+  return { getTotalWeiTransferred };
 };
