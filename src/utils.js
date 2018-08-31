@@ -13,13 +13,22 @@ export const getTransactionsHashesInBlock = async blockNum => {
   return res.transactions;
 };
 
-export const main = async () => {
-  const blockNums = range(6238372, 6238374);
+export const getTransactionHashes = async blockNums => {
   const txHashesPromises = blockNums.map(getTransactionsHashesInBlock);
   const txHashesPerBlockList = await Promise.all(txHashesPromises);
-  const txHashes = flatten(txHashesPerBlockList);
+  return flatten(txHashesPerBlockList);
+};
 
+export const getTransactions = async blockNums => {
+  const txHashes = await getTransactionHashes(blockNums);
   const txPs = txHashes.map(txHash => web3.eth.getTransaction(txHash));
-  const res = await Promise.all(txPs);
-  console.log(res);
+  return Promise.all(txPs);
+};
+
+export const main = async () => {
+  const start = 6238372;
+  const end = 6238374;
+  const blockNums = range(start, end + 1);
+  const txs = await getTransactions(blockNums);
+  console.log(txs);
 };
