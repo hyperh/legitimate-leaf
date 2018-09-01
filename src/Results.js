@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import web3 from './web3';
+import AddressAmount from './AddressAmount';
+import './App.css';
 
 const Results = ({
   title,
@@ -15,17 +17,21 @@ const Results = ({
     <div>
       <h3>Amount ETH received by address:</h3>
       {Object.keys(receiverTotals).map(address => (
-        <div key={address}>
-          {address}: {web3.utils.fromWei(receiverTotals[address])}
-        </div>
+        <AddressAmount
+          key={address}
+          address={address}
+          totalWei={receiverTotals[address]}
+        />
       ))}
     </div>
     <div>
       <h3>Amount ETH sent by address:</h3>
       {Object.keys(senderTotals).map(address => (
-        <div key={address}>
-          {address}: {web3.utils.fromWei(senderTotals[address])}
-        </div>
+        <AddressAmount
+          key={address}
+          address={address}
+          totalWei={senderTotals[address]}
+        />
       ))}
     </div>
     <div />
