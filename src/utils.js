@@ -87,11 +87,8 @@ export const getTransactionReceipts = async txs => {
 };
 
 export const getNumContractsCreated = receipts =>
-  receipts.filter(
-    receipt =>
-      pathOr(false, ['contractAddress'], receipt) &&
-      pathOr(false, ['to'], receipt) === null
-  ).length;
+  receipts.filter(receipt => pathOr(false, ['contractAddress'], receipt))
+    .length;
 
 export const getAnalytics = async (start = 4238372, end = 4238374) => {
   const blockNums = range(start, end + 1);
