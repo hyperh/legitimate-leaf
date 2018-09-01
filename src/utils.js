@@ -64,18 +64,30 @@ export const getUniqueAddressesIsContract = async txs => {
   return zipObj(uniqueAddresses, isContractList);
 };
 
+export const getBlocks = async (blockNums = []) => {
+  const blockPs = blockNums.map(blockNum => web3.eth.getBlock(blockNum));
+  return Promise.all(blockPs);
+};
+
+export const getNumUncles = (blocks = []) =>
+  blocks.reduce((prev, block) => prev + block.uncles.length, 0);
+
 export const getAnalytics = async (start = 4238372, end = 4238374) => {
   const blockNums = range(start, end + 1);
+  const blocks = await getBlocks(blockNums);
   const txs = await getTransactions(blockNums);
 
   const totalWeiTransferred = getTotalWeiTransferred(txs);
   const receiverTotals = getReceiverTotals(txs);
   const senderTotals = getSenderTotals(txs);
   const uniqueAddressesIsContract = await getUniqueAddressesIsContract(txs);
+  const numUncles = getNumUncles(blocks);
+
   return {
     totalWeiTransferred,
     receiverTotals,
     senderTotals,
-    uniqueAddressesIsContract
+    uniqueAddressesIsContract,
+    numUncles
   };
 };

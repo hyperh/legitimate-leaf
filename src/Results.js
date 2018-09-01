@@ -9,7 +9,8 @@ const Results = ({
   totalWeiTransferred,
   receiverTotals,
   senderTotals,
-  uniqueAddressesIsContract
+  uniqueAddressesIsContract,
+  numUncles
 }) => (
   <div className="results">
     <h2>Results: {title}</h2>
@@ -24,6 +25,7 @@ const Results = ({
       <div>
         Unique addresses sent transactions: {Object.keys(senderTotals).length}
       </div>
+      <div>Number of uncles: {numUncles}</div>
     </div>
 
     <div className="addressAmounts">
@@ -57,7 +59,8 @@ Results.propTypes = {
   totalWeiTransferred: PropTypes.string.isRequired,
   receiverTotals: PropTypes.object.isRequired,
   senderTotals: PropTypes.object.isRequired,
-  uniqueAddressesIsContract: PropTypes.object.isRequired
+  uniqueAddressesIsContract: PropTypes.object.isRequired,
+  numUncles: PropTypes.number.isRequired
 };
 
 export default Results;
