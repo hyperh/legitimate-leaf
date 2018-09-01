@@ -40,8 +40,3 @@ test('getSenderTotals', () => {
     c: '123'
   });
 });
-
-test('main should run', async () => {
-  const res = await Utils.getAnalytics();
-  console.log(res);
-});
