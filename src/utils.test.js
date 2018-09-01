@@ -84,3 +84,23 @@ test('getContractTxPercentage', () => {
   );
   expect(contractTxPercentage3).toEqual(75);
 });
+
+test('getNumEvents', () => {
+  const numEvents = Utils.getNumEvents([
+    { logs: [] },
+    null,
+    { logs: ['a', 'b'] }
+  ]);
+
+  expect(numEvents).toEqual(2);
+
+  const numEvents2 = Utils.getNumEvents([
+    { logs: [] },
+    null,
+    { logs: ['a', 'b'] },
+    { logs: ['a', 'b'] },
+    null
+  ]);
+
+  expect(numEvents2).toEqual(4);
+});
