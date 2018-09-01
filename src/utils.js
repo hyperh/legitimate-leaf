@@ -1,4 +1,4 @@
-import { range, flatten, zipObj } from 'ramda';
+import { range, flatten, zipObj, pathOr } from 'ramda';
 import BN from 'bn.js';
 import web3 from './web3';
 
@@ -71,6 +71,22 @@ export const getContractTxPercentage = (txs, uniqueAddressesIsContract) => {
   return (numContractTx / txs.length) * 100;
 };
 
+export const getNumEvents = async txs => {
+  const txHashes = txs.map(tx => tx.hash);
+  const txReceiptPs = txHashes.map(hash =>
+    web3.eth.getTransactionReceipt(hash)
+  );
+
+  const receipts = await Promise.all(txReceiptPs);
+
+  console.log(receipts);
+
+  return receipts.reduce(
+    (prev, receipt) => prev + pathOr([], ['logs'], receipt).length,
+    0
+  );
+};
+
 export const getAnalytics = async (start = 4238372, end = 4238374) => {
   const blockNums = range(start, end + 1);
   const blocks = await getBlocks(blockNums);
@@ -86,12 +102,15 @@ export const getAnalytics = async (start = 4238372, end = 4238374) => {
     uniqueAddressesIsContract
   );
 
+  const numEvents = await getNumEvents(txs);
+
   return {
     totalWeiTransferred,
     receiverTotals,
     senderTotals,
     uniqueAddressesIsContract,
     numUncles,
-    contractTxPercentage
+    contractTxPercentage,
+    numEvents
   };
 };

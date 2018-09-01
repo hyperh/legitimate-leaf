@@ -19,7 +19,8 @@ class App extends Component {
       receiverTotals: {},
       senderTotals: {},
       uniqueAddressesIsContract: {},
-      numUncles: 0
+      numUncles: 0,
+      numEvents: 0
     }
   };
 
@@ -137,7 +138,9 @@ class App extends Component {
           </div>
         )}
         {status === Status.SUCCEEDED && <Results {...res} />}
-        {status === Status.FAILED && 'Something went wrong. Please try again.'}
+        {status === Status.FAILED && (
+          <div>Something went wrong. Please try again.</div>
+        )}
       </div>
     );
   }
