@@ -71,21 +71,27 @@ export const getContractTxPercentage = (txs, uniqueAddressesIsContract) => {
   return (numContractTx / txs.length) * 100;
 };
 
-export const getNumEvents = async txs => {
+export const getNumEvents = receipts =>
+  receipts.reduce(
+    (prev, receipt) => prev + pathOr([], ['logs'], receipt).length,
+    0
+  );
+
+export const getTransactionReceipts = async txs => {
   const txHashes = txs.map(tx => tx.hash);
   const txReceiptPs = txHashes.map(hash =>
     web3.eth.getTransactionReceipt(hash)
   );
 
-  const receipts = await Promise.all(txReceiptPs);
-
-  console.log(receipts);
-
-  return receipts.reduce(
-    (prev, receipt) => prev + pathOr([], ['logs'], receipt).length,
-    0
-  );
+  return Promise.all(txReceiptPs);
 };
+
+export const getNumContractsCreated = receipts =>
+  receipts.filter(
+    receipt =>
+      pathOr(false, ['contractAddress'], receipt) &&
+      pathOr(false, ['to'], receipt) === null
+  ).length;
 
 export const getAnalytics = async (start = 4238372, end = 4238374) => {
   const blockNums = range(start, end + 1);
@@ -102,7 +108,9 @@ export const getAnalytics = async (start = 4238372, end = 4238374) => {
     uniqueAddressesIsContract
   );
 
-  const numEvents = await getNumEvents(txs);
+  const txReceipts = await getTransactionReceipts(txs);
+  const numEvents = getNumEvents(txReceipts);
+  const numContractsCreated = getNumContractsCreated(txReceipts);
 
   return {
     totalWeiTransferred,
@@ -111,6 +119,7 @@ export const getAnalytics = async (start = 4238372, end = 4238374) => {
     uniqueAddressesIsContract,
     numUncles,
     contractTxPercentage,
-    numEvents
+    numEvents,
+    numContractsCreated
   };
 };

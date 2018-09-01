@@ -12,7 +12,8 @@ const Results = ({
   uniqueAddressesIsContract,
   numUncles,
   contractTxPercentage,
-  numEvents
+  numEvents,
+  numContractsCreated
 }) => {
   return (
     <div className="results">
@@ -31,6 +32,7 @@ const Results = ({
         <div>Contract transactions percentage: {contractTxPercentage}</div>
         <div>Number of uncles: {numUncles}</div>
         <div>Number of events: {numEvents}</div>
+        <div>Number of contracts created: {numContractsCreated}</div>
       </div>
 
       <div className="addressAmounts">
@@ -68,7 +70,8 @@ Results.propTypes = {
   uniqueAddressesIsContract: PropTypes.object.isRequired,
   numUncles: PropTypes.number.isRequired,
   contractTxPercentage: PropTypes.number.isRequired,
-  numEvents: PropTypes.number.isRequired
+  numEvents: PropTypes.number.isRequired,
+  numContractsCreated: PropTypes.number.isRequired
 };
 
 export default Results;

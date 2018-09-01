@@ -20,7 +20,8 @@ class App extends Component {
       senderTotals: {},
       uniqueAddressesIsContract: {},
       numUncles: 0,
-      numEvents: 0
+      numEvents: 0,
+      numContractsCreated: 0
     }
   };
 
