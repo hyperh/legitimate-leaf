@@ -10,9 +10,7 @@ const Results = ({
 }) => (
   <div>
     <h2>Results: {title}</h2>
-    <div>
-      Total ether transferred: {web3.utils.fromWei(totalWeiTransferred)}
-    </div>
+    <div>Total ETH transferred: {web3.utils.fromWei(totalWeiTransferred)}</div>
     <div>
       <h3>Amount ETH received by address:</h3>
       {Object.keys(receiverTotals).map(address => (
