@@ -86,9 +86,19 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Ether Cash Flow Tool</h1>
+          <h2>How to use:</h2>
+          <div className="steps">
+            <ol>
+              <li>Pick method 1 or 2.</li>
+              <li>Enter in proper inputs.</li>
+              <li>Click "Analyze the blockchain!"</li>
+              <li>Wait for results.</li>
+              <li>Enjoy!</li>
+            </ol>
+          </div>
         </header>
 
-        <h2>Start and End Range of block numbers (inclusive)</h2>
+        <h2>1. Start and End Range of block numbers (inclusive)</h2>
         <input
           type="number"
           placeholder="Start"
@@ -107,7 +117,7 @@ class App extends Component {
           </button>
         )}
 
-        <h2>Number of blocks before present block</h2>
+        <h2>2. Number of blocks before present block</h2>
         <input
           type="number"
           placeholder="Number of blocks before present block"
