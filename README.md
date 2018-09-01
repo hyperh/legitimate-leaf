@@ -30,10 +30,12 @@ There are 2 ways a user can retrieve their analytics:
            REACT_APP_PROVIDER_URL=https://ropsten.infura.io/v3/MY_API_KEY
            ````
 
-           With local [`ganache-cli`](https://github.com/trufflesuite/ganache-cli):
+           With local [`ganache-cli`](https://github.com/trufflesuite/ganache-cli) (default port):
            ````
            REACT_APP_PROVIDER_URL=http://localhost:8545
            ````
+
+           With `ganache-cli`, the Ganache server must be started prior to this step. It should also be seeded with some test transactions as well.
     1. Setting environment variables on the command line
         
         ````
