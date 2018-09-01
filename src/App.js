@@ -4,6 +4,7 @@ import './App.css';
 import * as Utils from './utils';
 import * as Status from './status';
 import web3 from './web3';
+import Results from './Results';
 
 class App extends Component {
   state = {
@@ -11,7 +12,11 @@ class App extends Component {
     start: null,
     end: null,
     diff: null,
-    res: null
+    res: {
+      totalWeiTransferred: 0,
+      receiverTotals: {},
+      uniqueAddressesIsContract: {}
+    }
   };
 
   handleChangeInputStart = event =>
@@ -55,7 +60,7 @@ class App extends Component {
   };
 
   render() {
-    const { status, start, end, diff } = this.state;
+    const { status, start, end, diff, res } = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -99,12 +104,7 @@ class App extends Component {
             <Spinner name="wave" />
           </div>
         )}
-        {status === Status.SUCCEEDED && (
-          <div>
-            <h2>Results</h2>
-            <p>{JSON.stringify(this.state.res, null, 2)}</p>
-          </div>
-        )}
+        {status === Status.SUCCEEDED && <Results {...res} />}
       </div>
     );
   }
