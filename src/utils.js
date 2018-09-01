@@ -58,6 +58,18 @@ export const getBlocks = async (blockNums = []) => {
 export const getNumUncles = (blocks = []) =>
   blocks.reduce((prev, block) => prev + block.uncles.length, 0);
 
+export const getContractTxPercentage = (txs, uniqueAddressesIsContract) => {
+  const numContractTx = txs
+    .map(tx => {
+      uniqueAddressesIsContract[tx.from] || uniqueAddressesIsContract[tx.to]
+        ? 1
+        : 0;
+    })
+    .reduce((prev, isContractTx) => prev + isContractTx, 0);
+
+  return (numContractTx / txs.length) * 100;
+};
+
 export const getAnalytics = async (start = 4238372, end = 4238374) => {
   const blockNums = range(start, end + 1);
   const blocks = await getBlocks(blockNums);
@@ -68,12 +80,17 @@ export const getAnalytics = async (start = 4238372, end = 4238374) => {
   const senderTotals = getSenderTotals(txs);
   const uniqueAddressesIsContract = await getUniqueAddressesIsContract(txs);
   const numUncles = getNumUncles(blocks);
+  const contractTxPercentage = getContractTxPercentage(
+    txs,
+    uniqueAddressesIsContract
+  );
 
   return {
     totalWeiTransferred,
     receiverTotals,
     senderTotals,
     uniqueAddressesIsContract,
-    numUncles
+    numUncles,
+    contractTxPercentage
   };
 };
