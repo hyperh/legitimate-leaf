@@ -71,9 +71,7 @@ export const getUniqueAddressesIsContract = async txs => {
   return zipObj(uniqueAddresses, isContractList);
 };
 
-export const main = async () => {
-  const start = 4238372;
-  const end = 4238374;
+export const getAnalytics = async (start = 4238372, end = 4238374) => {
   const blockNums = range(start, end + 1);
   const txs = await getTransactions(blockNums);
 

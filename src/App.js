@@ -1,18 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+import * as Utils from './utils';
+import * as Status from './status';
 class App extends Component {
+  state = {
+    status: Status.READY
+  };
+
+  getAnalytics = async () => {
+    try {
+      this.setState({ status: Status.REQUESTED });
+      const res = await Utils.getAnalytics();
+      this.setState({ ...res, status: Status.SUCCEEDED });
+    } catch (e) {
+      console.log(e);
+      this.setState({ status: Status.FAILED });
+    }
+  };
+
   render() {
+    const { status } = this.state;
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Ether Cash Flow Tool</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
+        <p>Status: {status}</p>
+        {status !== Status.REQUESTED && (
+          <button onClick={this.getAnalytics}>Analyze the blockchain!</button>
+        )}
+        <p>{JSON.stringify(this.state.res, null, 2)}</p>
       </div>
     );
   }

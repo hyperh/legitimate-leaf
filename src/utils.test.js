@@ -1,5 +1,8 @@
 import * as Utils from './utils';
 
+// eslint-disable-next-line no-undef
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000;
+
 test('getTotalWeiTransferred', () => {
   const total = Utils.getTotalWeiTransferred([
     { value: '100' },
@@ -38,7 +41,7 @@ test('getSenderTotals', () => {
   });
 });
 
-// test('main should run', async () => {
-//   const res = await Utils.main();
-//   console.log(res);
-// });
+test('main should run', async () => {
+  const res = await Utils.getAnalytics();
+  console.log(res);
+});
