@@ -3,6 +3,7 @@ import Spinner from 'react-spinkit';
 import './App.css';
 import * as Utils from './utils';
 import * as Status from './status';
+import web3 from './web3';
 
 class App extends Component {
   state = {
@@ -40,7 +41,7 @@ class App extends Component {
 
       this.setState({ status: Status.REQUESTED });
 
-      const currentBlockNum = await Utils.getBlockNumber();
+      const currentBlockNum = await web3.eth.getBlockNumber();
 
       const res = await Utils.getAnalytics(
         parseInt(currentBlockNum - diff, radix),
