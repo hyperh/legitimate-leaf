@@ -14,6 +14,7 @@ class App extends Component {
     end: null,
     diff: null,
     res: {
+      title: '',
       totalWeiTransferred: 0,
       receiverTotals: {},
       senderTotals: {},
@@ -39,7 +40,10 @@ class App extends Component {
       this.setState({ status: Status.REQUESTED });
 
       const res = await Utils.getAnalytics(startInt, endInt);
-      this.setState({ res, status: Status.SUCCEEDED });
+      this.setState({
+        res: { ...res, title: `Block ${startInt} to Block ${endInt}` },
+        status: Status.SUCCEEDED
+      });
     } catch (e) {
       console.log(e);
       this.setState({ status: Status.FAILED });
@@ -62,11 +66,14 @@ class App extends Component {
 
       const currentBlockNum = await web3.eth.getBlockNumber();
 
-      const res = await Utils.getAnalytics(
-        parseInt(currentBlockNum - diff, radix),
-        parseInt(currentBlockNum, radix)
-      );
-      this.setState({ res, status: Status.SUCCEEDED });
+      const startInt = parseInt(currentBlockNum - diff, radix);
+      const endInt = parseInt(currentBlockNum, radix);
+
+      const res = await Utils.getAnalytics(startInt, endInt);
+      this.setState({
+        res: { ...res, title: `Block ${startInt} to Block ${endInt}` },
+        status: Status.SUCCEEDED
+      });
     } catch (e) {
       console.log(e);
       this.setState({ status: Status.FAILED });

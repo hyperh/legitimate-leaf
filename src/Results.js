@@ -2,13 +2,14 @@ import React from 'react';
 import web3 from './web3';
 
 const Results = ({
+  title,
   totalWeiTransferred,
   receiverTotals,
   senderTotals,
   uniqueAddressesIsContract
 }) => (
   <div>
-    <h2>Results</h2>
+    <h2>Results: {title}</h2>
     <div>
       Total ether transferred: {web3.utils.fromWei(totalWeiTransferred)}
     </div>
