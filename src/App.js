@@ -16,6 +16,7 @@ class App extends Component {
     res: {
       totalWeiTransferred: 0,
       receiverTotals: {},
+      senderTotals: {},
       uniqueAddressesIsContract: {}
     }
   };

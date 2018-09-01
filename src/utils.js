@@ -70,6 +70,12 @@ export const getAnalytics = async (start = 4238372, end = 4238374) => {
 
   const totalWeiTransferred = getTotalWeiTransferred(txs);
   const receiverTotals = getReceiverTotals(txs);
+  const senderTotals = getSenderTotals(txs);
   const uniqueAddressesIsContract = await getUniqueAddressesIsContract(txs);
-  return { totalWeiTransferred, receiverTotals, uniqueAddressesIsContract };
+  return {
+    totalWeiTransferred,
+    receiverTotals,
+    senderTotals,
+    uniqueAddressesIsContract
+  };
 };
