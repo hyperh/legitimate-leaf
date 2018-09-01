@@ -26,6 +26,9 @@ class App extends Component {
   getAnalyticsWithStartEnd = async () => {
     try {
       const { start, end } = this.state;
+      const canSubmit = start > 0 && end > 0;
+      if (!canSubmit) return alert('Start and end must be positive integers.');
+
       this.setState({ status: Status.REQUESTED });
       const radix = 10;
       const res = await Utils.getAnalytics(
@@ -42,6 +45,13 @@ class App extends Component {
   getAnalyticsWithDiff = async () => {
     try {
       const { diff } = this.state;
+      const canSubmit = diff > 0;
+
+      if (!canSubmit)
+        return alert(
+          'Number of blocks before current must be a positive integer.'
+        );
+
       const radix = 10;
 
       this.setState({ status: Status.REQUESTED });
