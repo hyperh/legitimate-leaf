@@ -48,4 +48,14 @@ test('getUniqueAddressesIsContract', async () => {
   expect(res).toEqual({ a: false, b: false, c: true, d: false });
 });
 
-test('num');
+test('getNumUncles', () => {
+  const numUncles = Utils.getNumUncles([
+    { uncles: [] },
+    { uncles: ['hash1', 'hash2'] },
+    { uncles: ['hash1', 'hash2'] }
+  ]);
+  expect(numUncles).toEqual(4);
+
+  const numUncles2 = Utils.getNumUncles([{ uncles: [] }]);
+  expect(numUncles2).toEqual(0);
+});
