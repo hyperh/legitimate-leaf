@@ -1,13 +1,14 @@
 import Web3 from 'web3';
-import dotenv from 'dotenv';
 import { range, flatten, zipObj } from 'ramda';
 import BN from 'bn.js';
-
+import dotenv from 'dotenv';
 dotenv.config();
 
-const networkUrl = process.env.INFURA_ENDPOINT_MAINNET;
+const networkUrl = process.env.REACT_APP_INFURA_ENDPOINT_MAINNET;
 const provider = new Web3.providers.HttpProvider(networkUrl);
 const web3 = new Web3(provider);
+
+export const getBlockNumber = () => web3.eth.getBlockNumber();
 
 export const getTransactionsHashesInBlock = async blockNum => {
   const res = await web3.eth.getBlock(blockNum);
