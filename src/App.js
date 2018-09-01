@@ -10,9 +10,9 @@ const radix = 10;
 class App extends Component {
   state = {
     status: Status.READY,
-    start: null,
-    end: null,
-    diff: null,
+    start: '',
+    end: '',
+    diff: '',
     res: {
       title: '',
       totalWeiTransferred: 0,
