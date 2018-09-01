@@ -14,23 +14,25 @@ const Results = ({
   <div>
     <h2>Results: {title}</h2>
     <div>Total ETH transferred: {web3.utils.fromWei(totalWeiTransferred)}</div>
-    <div>
+    <div className="addressAmounts">
       <h3>Amount ETH received by address:</h3>
       {Object.keys(receiverTotals).map(address => (
         <AddressAmount
           key={address}
           address={address}
           totalWei={receiverTotals[address]}
+          isContract={uniqueAddressesIsContract[address]}
         />
       ))}
     </div>
-    <div>
+    <div className="addressAmounts">
       <h3>Amount ETH sent by address:</h3>
       {Object.keys(senderTotals).map(address => (
         <AddressAmount
           key={address}
           address={address}
           totalWei={senderTotals[address]}
+          isContract={uniqueAddressesIsContract[address]}
         />
       ))}
     </div>
