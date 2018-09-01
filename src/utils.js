@@ -2,22 +2,8 @@ import { range, flatten, zipObj } from 'ramda';
 import BN from 'bn.js';
 import web3 from './web3';
 
-export const getTransactionsHashesInBlock = async blockNum => {
-  const res = await web3.eth.getBlock(blockNum);
-  return res.transactions;
-};
-
-export const getTransactionHashes = async blockNums => {
-  const txHashesPromises = blockNums.map(getTransactionsHashesInBlock);
-  const txHashesPerBlockList = await Promise.all(txHashesPromises);
-  return flatten(txHashesPerBlockList);
-};
-
-export const getTransactions = async blockNums => {
-  const txHashes = await getTransactionHashes(blockNums);
-  const txPs = txHashes.map(txHash => web3.eth.getTransaction(txHash));
-  return Promise.all(txPs);
-};
+export const getTransactions = blocks =>
+  flatten(blocks.map(block => block.transactions));
 
 export const getTotalWeiTransferred = txs =>
   txs
@@ -65,7 +51,7 @@ export const getUniqueAddressesIsContract = async txs => {
 };
 
 export const getBlocks = async (blockNums = []) => {
-  const blockPs = blockNums.map(blockNum => web3.eth.getBlock(blockNum));
+  const blockPs = blockNums.map(blockNum => web3.eth.getBlock(blockNum, true));
   return Promise.all(blockPs);
 };
 
@@ -75,7 +61,7 @@ export const getNumUncles = (blocks = []) =>
 export const getAnalytics = async (start = 4238372, end = 4238374) => {
   const blockNums = range(start, end + 1);
   const blocks = await getBlocks(blockNums);
-  const txs = await getTransactions(blockNums);
+  const txs = getTransactions(blocks);
 
   const totalWeiTransferred = getTotalWeiTransferred(txs);
   const receiverTotals = getReceiverTotals(txs);
