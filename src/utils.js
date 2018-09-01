@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 import dotenv from 'dotenv';
-import { range, flatten } from 'ramda';
+import { range, flatten, zipObj } from 'ramda';
 import BN from 'bn.js';
 
 dotenv.config();
@@ -49,6 +49,28 @@ export const getTotals = addressKey => txs =>
 export const getReceiverTotals = getTotals('to');
 export const getSenderTotals = getTotals('from');
 
+export const getUniqueAddresses = txs =>
+  txs.reduce(
+    (prev, tx) => Object.assign(prev, { [tx.from]: null, [tx.to]: null }),
+    {}
+  );
+
+const isContract = code => code !== '0x';
+
+export const getUniqueAddressesIsContract = async txs => {
+  const uniqueAddressesObj = getUniqueAddresses(txs);
+  const uniqueAddresses = Object.keys(uniqueAddressesObj);
+
+  const getCodePs = uniqueAddresses
+    .filter(address => address !== 'null')
+    .map(address => web3.eth.getCode(address));
+
+  const addressCodes = await Promise.all(getCodePs);
+  const isContractList = addressCodes.map(isContract);
+
+  return zipObj(uniqueAddresses, isContractList);
+};
+
 export const main = async () => {
   const start = 4238372;
   const end = 4238374;
@@ -57,5 +79,6 @@ export const main = async () => {
 
   const totalWeiTransferred = getTotalWeiTransferred(txs);
   const receiverTotals = getReceiverTotals(txs);
-  return { totalWeiTransferred, receiverTotals };
+  const uniqueAddressesIsContract = await getUniqueAddressesIsContract(txs);
+  return { totalWeiTransferred, receiverTotals, uniqueAddressesIsContract };
 };
