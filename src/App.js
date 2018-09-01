@@ -6,6 +6,7 @@ import * as Status from './status';
 import web3 from './web3';
 import Results from './Results';
 
+const radix = 10;
 class App extends Component {
   state = {
     status: Status.READY,
@@ -26,15 +27,16 @@ class App extends Component {
   getAnalyticsWithStartEnd = async () => {
     try {
       const { start, end } = this.state;
-      const canSubmit = start > 0 && end > 0;
+
+      const startInt = parseInt(start, radix);
+      const endInt = parseInt(end, radix);
+
+      const canSubmit = startInt > 0 && endInt > 0;
       if (!canSubmit) return alert('Start and end must be positive integers.');
 
       this.setState({ status: Status.REQUESTED });
-      const radix = 10;
-      const res = await Utils.getAnalytics(
-        parseInt(start, radix),
-        parseInt(end, radix)
-      );
+
+      const res = await Utils.getAnalytics(startInt, endInt);
       this.setState({ res, status: Status.SUCCEEDED });
     } catch (e) {
       console.log(e);
@@ -45,14 +47,14 @@ class App extends Component {
   getAnalyticsWithDiff = async () => {
     try {
       const { diff } = this.state;
-      const canSubmit = diff > 0;
+
+      const diffInt = parseInt(diff, radix);
+      const canSubmit = diffInt > 0;
 
       if (!canSubmit)
         return alert(
           'Number of blocks before current must be a positive integer.'
         );
-
-      const radix = 10;
 
       this.setState({ status: Status.REQUESTED });
 
