@@ -8,7 +8,8 @@ class App extends Component {
     status: Status.READY,
     start: null,
     end: null,
-    diff: null
+    diff: null,
+    res: null
   };
 
   handleChangeInputStart = event =>
@@ -24,7 +25,7 @@ class App extends Component {
         parseInt(start, radix),
         parseInt(end, radix)
       );
-      this.setState({ ...res, status: Status.SUCCEEDED });
+      this.setState({ res, status: Status.SUCCEEDED });
     } catch (e) {
       console.log(e);
       this.setState({ status: Status.FAILED });
@@ -44,7 +45,7 @@ class App extends Component {
         parseInt(currentBlockNum - diff, radix),
         parseInt(currentBlockNum, radix)
       );
-      this.setState({ ...res, status: Status.SUCCEEDED });
+      this.setState({ res, status: Status.SUCCEEDED });
     } catch (e) {
       console.log(e);
       this.setState({ status: Status.FAILED });
