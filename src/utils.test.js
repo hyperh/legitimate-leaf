@@ -3,6 +3,8 @@ import * as Utils from './utils';
 // eslint-disable-next-line no-undef
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000;
 
+jest.mock('./web3');
+
 test('getTotalWeiTransferred', () => {
   const total = Utils.getTotalWeiTransferred([
     { value: '100' },
@@ -39,4 +41,12 @@ test('getSenderTotals', () => {
     b: '200',
     c: '123'
   });
+});
+
+test('getUniqueAddressesIsContract', async () => {
+  const res = await Utils.getUniqueAddressesIsContract([
+    { to: 'a', from: 'b' },
+    { to: 'c', from: 'd' }
+  ]);
+  expect(res).toEqual({ a: false, b: false, c: true, d: false });
 });

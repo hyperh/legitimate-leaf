@@ -34,11 +34,14 @@ export const getUniqueAddresses = txs =>
     {}
   );
 
-const isContract = code => code !== '0x';
+const isContract = code => {
+  if (code === '0x' || code === '0x0') return false;
+  return true;
+};
 
 export const getUniqueAddressesIsContract = async txs => {
   const uniqueAddressesObj = getUniqueAddresses(txs);
-  const uniqueAddresses = Object.keys(uniqueAddressesObj);
+  const uniqueAddresses = Object.keys(uniqueAddressesObj).sort();
 
   const getCodePs = uniqueAddresses
     .filter(address => address !== 'null')
