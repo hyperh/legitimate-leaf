@@ -21,7 +21,8 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.spinnerWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }

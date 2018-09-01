@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Spinner from 'react-spinkit';
 import './App.css';
 import * as Utils from './utils';
 import * as Status from './status';
@@ -60,8 +61,6 @@ class App extends Component {
           <h1 className="App-title">Ether Cash Flow Tool</h1>
         </header>
 
-        <p>Status: {status}</p>
-
         <h2>Start and End Range of block numbers (inclusive)</h2>
         <input
           type="number"
@@ -94,7 +93,17 @@ class App extends Component {
           </button>
         )}
 
-        <p>{JSON.stringify(this.state.res, null, 2)}</p>
+        {status === Status.REQUESTED && (
+          <div className="spinnerWrapper">
+            <Spinner name="wave" />
+          </div>
+        )}
+        {status === Status.SUCCEEDED && (
+          <div>
+            <h2>Results</h2>
+            <p>{JSON.stringify(this.state.res, null, 2)}</p>
+          </div>
+        )}
       </div>
     );
   }
