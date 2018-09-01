@@ -1,8 +1,5 @@
 import * as Utils from './utils';
 
-// eslint-disable-next-line no-undef
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 1000;
-
 jest.mock('./web3');
 
 test('getTotalWeiTransferred', () => {
@@ -50,3 +47,5 @@ test('getUniqueAddressesIsContract', async () => {
   ]);
   expect(res).toEqual({ a: false, b: false, c: true, d: false });
 });
+
+test('num');
