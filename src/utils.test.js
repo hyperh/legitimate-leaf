@@ -104,3 +104,13 @@ test('getNumEvents', () => {
 
   expect(numEvents2).toEqual(4);
 });
+
+test('getNumContractsCreated', () => {
+  const numContractsCreated = Utils.getNumContractsCreated([
+    { contractAddress: '0xcontract' },
+    { contractAddress: '0xcontract2' },
+    { contractAddress: null },
+    null
+  ]);
+  expect(numContractsCreated).toEqual(2);
+});
