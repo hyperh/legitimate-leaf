@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import web3 from './web3';
 
 const Results = ({
@@ -30,5 +31,13 @@ const Results = ({
     <div />
   </div>
 );
+
+Results.propTypes = {
+  title: PropTypes.string.isRequired,
+  totalWeiTransferred: PropTypes.string.isRequired,
+  receiverTotals: PropTypes.object.isRequired,
+  senderTotals: PropTypes.object.isRequired,
+  uniqueAddressesIsContract: PropTypes.object.isRequired
+};
 
 export default Results;
