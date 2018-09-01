@@ -21,20 +21,16 @@
   font-size: large;
 }
 
-.spinnerWrapper {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-}
-
 .steps {
   display: flex;
   justify-content: center;
   text-align: left;
 }
 
-.contract {
-  color: red
+.spinnerWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
 
 .results {
@@ -42,4 +38,8 @@
   flex-direction: column;
   padding: 50px 100px;
   text-align: left;
+}
+
+.contract {
+  color: red
 }
