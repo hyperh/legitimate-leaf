@@ -137,6 +137,7 @@ class App extends Component {
           </div>
         )}
         {status === Status.SUCCEEDED && <Results {...res} />}
+        {status === Status.FAILED && 'Something went wrong. Please try again.'}
       </div>
     );
   }
