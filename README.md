@@ -25,13 +25,22 @@ There are 2 ways a user can retrieve their analytics:
     1. `.env` file
         1. Add a single line: `REACT_APP_PROVIDER_URL=...` 
           
-           For example with [Infura's Ropsten endpoint](https://infura.io/): `REACT_APP_PROVIDER_URL=https://ropsten.infura.io/v3/MY_API_KEY`
+           For example with [Infura's Ropsten endpoint](https://infura.io/): 
+           ````
+           REACT_APP_PROVIDER_URL=https://ropsten.infura.io/v3/MY_API_KEY
+           ````
 
            With local [`ganache-cli`](https://github.com/trufflesuite/ganache-cli):
-           `REACT_APP_PROVIDER_URL=http://localhost:8545`
+           ````
+           REACT_APP_PROVIDER_URL=http://localhost:8545
+           ````
     1. Setting environment variables on the command line
-        1. `REACT_APP_PROVIDER_URL=... yarn start`
-        1. This will set the env var and start the app dev server at the same time.
+        
+        ````
+        REACT_APP_PROVIDER_URL=... yarn start
+        ````
+
+        This will set the env var and start the app dev server at the same time.
 
 1. Start the app dev server: `yarn start` or `npm start`
 
