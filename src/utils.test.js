@@ -59,3 +59,28 @@ test('getNumUncles', () => {
   const numUncles2 = Utils.getNumUncles([{ uncles: [] }]);
   expect(numUncles2).toEqual(0);
 });
+
+test('getContractTxPercentage', () => {
+  const contractTxPercentage = Utils.getContractTxPercentage(
+    [{ from: 'a', to: 'b' }],
+    { a: true, b: false, c: false }
+  );
+  expect(contractTxPercentage).toEqual(100);
+
+  const contractTxPercentage2 = Utils.getContractTxPercentage(
+    [{ from: 'a', to: 'b' }, { from: 'b', to: 'c' }],
+    { a: true, b: false, c: false }
+  );
+  expect(contractTxPercentage2).toEqual(50);
+
+  const contractTxPercentage3 = Utils.getContractTxPercentage(
+    [
+      { from: 'a', to: 'b' },
+      { from: 'b', to: 'c' },
+      { from: 'a', to: 'c' },
+      { from: 'a', to: 'c' }
+    ],
+    { a: true, b: false, c: false }
+  );
+  expect(contractTxPercentage3).toEqual(75);
+});
