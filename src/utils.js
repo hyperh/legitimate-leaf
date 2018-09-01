@@ -60,11 +60,12 @@ export const getNumUncles = (blocks = []) =>
 
 export const getContractTxPercentage = (txs, uniqueAddressesIsContract) => {
   const numContractTx = txs
-    .map(tx => {
-      uniqueAddressesIsContract[tx.from] || uniqueAddressesIsContract[tx.to]
-        ? 1
-        : 0;
-    })
+    .map(
+      tx =>
+        uniqueAddressesIsContract[tx.from] || uniqueAddressesIsContract[tx.to]
+          ? 1
+          : 0
+    )
     .reduce((prev, isContractTx) => prev + isContractTx, 0);
 
   return (numContractTx / txs.length) * 100;
