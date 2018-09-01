@@ -24,6 +24,7 @@ class App extends Component {
   handleChangeInputStart = event =>
     this.setState({ start: event.target.value });
   handleChangeInputEnd = event => this.setState({ end: event.target.value });
+  handleChangeInputDiff = event => this.setState({ diff: event.target.value });
 
   getAnalyticsWithStartEnd = async () => {
     try {
