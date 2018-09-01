@@ -11,9 +11,21 @@ const Results = ({
   senderTotals,
   uniqueAddressesIsContract
 }) => (
-  <div>
+  <div className="results">
     <h2>Results: {title}</h2>
-    <div>Total ETH transferred: {web3.utils.fromWei(totalWeiTransferred)}</div>
+
+    <div>
+      <h3>Total</h3>
+      <div>ETH transferred: {web3.utils.fromWei(totalWeiTransferred)}</div>
+      <div>
+        Unique addresses received transactions:{' '}
+        {Object.keys(receiverTotals).length}
+      </div>
+      <div>
+        Unique addresses sent transactions: {Object.keys(senderTotals).length}
+      </div>
+    </div>
+
     <div className="addressAmounts">
       <h3>Amount ETH received by address:</h3>
       {Object.keys(receiverTotals).map(address => (
