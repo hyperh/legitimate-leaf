@@ -22,7 +22,7 @@ There are 2 ways a user can retrieve their analytics:
 
 # Running
 1. Before running, we need to set environment variables. There are 2 ways to do this.
-    1. `.env` file
+    1. Add `.env` file to the root of the project.
         1. Add a single line: 
         
            ```
