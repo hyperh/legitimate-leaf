@@ -8,6 +8,9 @@ There are 2 ways a user can retrieve their analytics:
 1. X blocks before the present block
 
 # Installation
+
+NOTE: Only tested on Node 9.10.0 so far.
+
 1. Install dependencies through [`yarn`](https://yarnpkg.com/en/) 
 
     ```
