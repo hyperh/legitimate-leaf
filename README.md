@@ -54,4 +54,4 @@ NOTE: Only tested on Node 9.10.0 so far.
 1. Start the app dev server: `yarn start` or `npm start`
 
 # Run Tests
-1. `yarn test` or `npm start`
+1. `yarn test` or `npm test`
